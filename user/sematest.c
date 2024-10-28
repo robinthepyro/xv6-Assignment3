@@ -17,7 +17,7 @@ main()
 	}
 	
 	if (pid) {
-//		sleep(300);
+		// sleep(300);
 		for (i = 0; i < 10; i++) 
 			wait(0);
 		

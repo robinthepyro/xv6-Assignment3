@@ -489,38 +489,37 @@ sys_pipe(void)
 int
 sys_sematest(void)
 {
-  static struct semaphore lk;
+  
+  static struct semaphore sema;
   int cmd, ret = 0;
-	
-  if(argint(0, &cmd) < 0)
-	return -1;
-
-  switch(cmd) {
-	case 0: initsema(&lk, 5); ret = 5; break;
-	case 1: ret = downsema(&lk); break;
-	case 2: ret = upsema(&lk); break;
+  if(argint(0, &cmd) < 0){
+    return -1;
   }
+  switch(cmd) {
+    case 0:initsema(&sema, 5); ret = 5; break;
+    case 1: ret = downsema(&sema); break;
+    case 2: ret = upsema(&sema); break;
+  }
+  printf("\nvalue = %d\n", sema.value);
   return ret;
 }
 
 
-// Not yet ready for this
-// TODO get ready for this
-// int
-// sys_rwsematest(void)
-// {
-//   static struct rwsemaphore lk;
-//   int cmd, ret = 0;
+int
+sys_rwsematest(void)
+{
+  static struct rwsemaphore lk;
+  int cmd, ret = 0;
 
-//   if(argint(0, &cmd) < 0)
-// 	return -1;
+  if(argint(0, &cmd) < 0) 
+    return -1;
 
-//   switch(cmd) {
-// 	case 0: initrwsema(&lk); break;
-// 	case 1: ret = downreadsema(&lk); break;
-// 	case 2: ret = upreadsema(&lk); break;
-// 	case 3: downwritesema(&lk); break;
-// 	case 4: upwritesema(&lk); break;
-//   }
-//   return ret;
-// }
+  switch(cmd) {
+  	case 0: initrwsema(&lk); break;
+  	case 1: ret = downreadsema(&lk); break;
+  	case 2: ret = upreadsema(&lk); break;
+  	case 3: downwritesema(&lk); break;
+  	case 4: upwritesema(&lk); break;
+  }
+  return ret;
+}

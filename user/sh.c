@@ -3,6 +3,8 @@
 #include "kernel/types.h"
 #include "user/user.h"
 #include "kernel/fcntl.h"
+#include <complex.h>
+#include <sys/cdefs.h>
 
 // Parsed command representation
 #define EXEC  1
@@ -54,6 +56,8 @@ void panic(char*);
 struct cmd *parsecmd(char*);
 
 // Execute cmd.  Never returns.
+// attribute was needed for this to run on my machine - robin
+__attribute__((noreturn))
 void
 runcmd(struct cmd *cmd)
 {

@@ -1,3 +1,4 @@
+// Generic Counting Semaphore
 struct semaphore {
   int value;
   struct spinlock lk;
@@ -11,8 +12,10 @@ int upsema(struct semaphore*);
 
 // Read/Write Semaphore
 struct rwsemaphore {
-  // TODO add contents
-  // likely turnstile + reader count + mutex
+  int readers;    
+  struct semaphore mutex;
+  struct semaphore room_empty;
+  struct semaphore turnstile;
 };
 
 void initrwsema(struct rwsemaphore *);
@@ -20,4 +23,3 @@ int downreadsema(struct rwsemaphore *);
 int upreadsema(struct rwsemaphore *);
 void downwritesema(struct rwsemaphore *);
 void upwritesema(struct rwsemaphore *);
-
